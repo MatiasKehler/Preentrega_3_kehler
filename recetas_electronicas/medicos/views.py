@@ -79,7 +79,11 @@ def buscarmedicos(request):
 def buscar2(request):
     if request.GET['buscar']:
         busqueda = request.GET['buscar']
-        prueba = Medicos.objects.filter(nombre__icontains= busqueda)
-        context = {'doctor': prueba}
+        apellido = Medicos.objects.filter(apellido__icontains = busqueda)
+        nombre = Medicos.objects.filter(nombre__icontains= busqueda)
+        if nombre:
+            context = {'doctor': nombre}
+        if apellido:
+            context = {'doctor': apellido}
         return render(request, "medicos/medicos.html", context)
     return HttpResponse("Ingreso un dato no valido.")
